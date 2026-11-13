@@ -16,6 +16,15 @@ function isTodo(value: unknown): value is Todo {
   )
 }
 
+function normalizeTodo(todo: Todo): Todo {
+  const priority = todo.priority
+  return {
+    ...todo,
+    priority: priority === 'low' || priority === 'high' || priority === 'medium' ? priority : 'medium',
+    category: typeof todo.category === 'string' ? todo.category : 'Personal',
+  }
+}
+
 export function readTodos(): Todo[] {
   const storedTodos = window.localStorage.getItem(STORAGE_KEY)
   if (storedTodos === null) return []
@@ -31,7 +40,7 @@ export function readTodos(): Todo[] {
     throw new Error('Saved tasks have an unexpected format.')
   }
 
-  return parsed
+  return parsed.map(normalizeTodo)
 }
 
 export function writeTodos(todos: Todo[]): void {

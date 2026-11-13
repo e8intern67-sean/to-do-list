@@ -13,10 +13,18 @@ function TodoForm({ todo, onCancel, onSubmit }: TodoFormProps) {
   const [title, setTitle] = useState(todo?.title ?? '')
   const [description, setDescription] = useState(todo?.description ?? '')
   const [dueDate, setDueDate] = useState(todo?.dueDate ?? '')
+  const [priority, setPriority] = useState(todo?.priority ?? 'medium')
+  const [category, setCategory] = useState(todo?.category ?? 'Personal')
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    const saved = onSubmit({ title: title.trim(), description: description.trim(), dueDate })
+    const saved = onSubmit({
+      title: title.trim(),
+      description: description.trim(),
+      dueDate,
+      priority,
+      category: category.trim() || 'Personal',
+    })
     if (saved) onCancel()
   }
 
@@ -51,6 +59,29 @@ function TodoForm({ todo, onCancel, onSubmit }: TodoFormProps) {
         type="date"
         value={dueDate}
       />
+      <div className="todo-form__row">
+        <label className="field" htmlFor="priority">
+          <span className="field__label">Priority</span>
+          <select
+            className="input"
+            id="priority"
+            onChange={(event) => setPriority(event.target.value as typeof priority)}
+            value={priority}
+          >
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </label>
+        <Input
+          label="Category"
+          maxLength={24}
+          name="category"
+          onChange={(event) => setCategory(event.target.value)}
+          placeholder="Personal"
+          value={category}
+        />
+      </div>
       <div className="todo-form__actions">
         <Button onClick={onCancel} type="button">Cancel</Button>
         <Button type="submit" variant="primary">

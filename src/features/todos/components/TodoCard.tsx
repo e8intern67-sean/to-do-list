@@ -29,13 +29,19 @@ function TodoCard({ todo, onDelete, onEdit, onToggle }: TodoCardProps) {
         {todo.completed ? '✓' : ''}
       </button>
       <div className="todo-card__content">
-        <h3>{todo.title}</h3>
+        <div className="todo-card__title-row">
+          <span className={`priority-dot priority-dot--${todo.priority}`} title={`${todo.priority} priority`} />
+          <h3>{todo.title}</h3>
+        </div>
         {todo.description && <p>{todo.description}</p>}
-        {dueDate && (
-          <span className={`todo-card__date ${!todo.completed && todo.dueDate < getLocalDateKey() ? 'todo-card__date--overdue' : ''}`}>
-            <span aria-hidden="true">◷</span> {dueDate}
-          </span>
-        )}
+        <div className="todo-card__meta">
+          <span className="todo-card__category">{todo.category}</span>
+          {dueDate && (
+            <span className={`todo-card__date ${!todo.completed && todo.dueDate < getLocalDateKey() ? 'todo-card__date--overdue' : ''}`}>
+              <span aria-hidden="true">◷</span> {dueDate}
+            </span>
+          )}
+        </div>
       </div>
       <div className="todo-card__actions">
         <Button

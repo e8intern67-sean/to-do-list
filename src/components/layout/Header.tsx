@@ -22,7 +22,11 @@ function Header({ search, onSearchChange }: HeaderProps) {
             value={search}
           />
         </label>
-        <div aria-label="Daymark workspace" className="avatar">D</div>
+        <button aria-label="Notifications" className="header__notification" type="button">♧</button>
+        <button aria-label="Open profile menu" className="profile-button" type="button">
+          <span className="avatar">D</span>
+          <span aria-hidden="true" className="profile-button__chevron">⌄</span>
+        </button>
       </div>
     </header>
   )

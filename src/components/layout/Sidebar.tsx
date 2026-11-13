@@ -46,7 +46,7 @@ function Sidebar({ activeView, counts, onAdd, onViewChange }: SidebarProps) {
       <p className="sidebar__label sidebar__label--projects">PROJECTS</p>
       <div className="sidebar__projects">
         <span>
-          <i className="project-dot project-dot--coral" /> Personal
+          <i className="project-dot project-dot--coral" /> Personal workout
         </span>
         <span>
           <i className="project-dot project-dot--blue" /> Work
